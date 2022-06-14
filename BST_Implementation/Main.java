@@ -26,6 +26,30 @@ class Main {
         return isSymmetricHelper(node1.left, node2.left) && isSymmetricHelper(node1.right, node2.right);
     }
 
+    public static void removeLeaves(BinaryNode<Integer> root) {
+        if(root == null) {
+            return;
+        }
+
+        removeLeavesHelper(root, null);
+    }
+
+    private static void removeLeavesHelper(BinaryNode<Integer> curNode, BinaryNode<Integer> sucNode) {
+        if(curNode == null) {
+            return;
+        }
+
+        if(curNode.left == null && curNode.right == null) {
+            if(sucNode.left == curNode)
+                sucNode.left = null;
+            else
+                sucNode.right = null;
+        }
+
+        removeLeavesHelper(curNode.left, curNode);
+        removeLeavesHelper(curNode.right, curNode);
+    }
+
     public static void main(String[] args) {
         BinaryNode<Integer> root = new BinaryNode<Integer>(
             10, new BinaryNode<>(
@@ -33,7 +57,10 @@ class Main {
                 ), new BinaryNode<>(
                     14, new BinaryNode<>(12), new BinaryNode<>(17)));
 
-        System.out.println(countGreaterThanValue(root, 9));
+        System.out.println(countGreaterThanValue(root, 1));
         System.out.println(isSymmetric(root));
+
+        removeLeaves(root);
+        System.out.println(countGreaterThanValue(root, 1));
     }
 }
