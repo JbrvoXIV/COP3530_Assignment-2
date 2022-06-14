@@ -13,31 +13,17 @@ class Main {
     }
 
     public static boolean isSymmetric(BinaryNode<Integer> root) {
-        BinaryNode<Integer> leftSubtree = root.left;
-        BinaryNode<Integer> rightSubtree = root.right;
+        return isSymmetricHelper(root.left, root.right);
+    }
 
-        if(leftSubtree == null && rightSubtree == null) {
+    private static boolean isSymmetricHelper(BinaryNode<Integer> node1, BinaryNode<Integer> node2) {
+        if(node1 == null && node2 == null) {
             return true;
-        } else if(leftSubtree == null || rightSubtree == null) {
-            return false;
-        } else {
-            while(leftSubtree != null && rightSubtree != null) {
-                BinaryNode<Integer> leftSubtreeRoot = leftSubtree;
-                BinaryNode<Integer> rightSubtreeRoot = rightSubtree;
-                BinaryNode<Integer> leftSubtreeSucNode = leftSubtreeRoot;
-                BinaryNode<Integer> rightSubtreeSucNode = rightSubtreeRoot;
-
-                if(leftSubtree.left == null && leftSubtree.right == null) {
-                    if(rightSubtree.left == null && rightSubtree.right == null) {
-                        leftSubtree = leftSubtreeSucNode;
-                        rightSubtree = rightSubtreeSucNode;
-                    } else {
-                        return false;
-                    }
-                }
-            }
         }
-
+        if(node1 == null || node2 == null) {
+            return false;
+        }
+        return isSymmetricHelper(node1.left, node2.left) && isSymmetricHelper(node1.right, node2.right);
     }
 
     public static void main(String[] args) {
@@ -45,9 +31,7 @@ class Main {
             10, new BinaryNode<>(
                 8, new BinaryNode<>(6), new BinaryNode<>(9)
                 ), new BinaryNode<>(
-                    14, new BinaryNode<>(12), new BinaryNode<>(17)
-                    )
-        );
+                    14, new BinaryNode<>(12), new BinaryNode<>(17)));
 
         System.out.println(countGreaterThanValue(root, 9));
         System.out.println(isSymmetric(root));
