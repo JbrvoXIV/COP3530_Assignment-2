@@ -10,32 +10,46 @@ class Main {
         }
 
         return 0 + countGreaterThanValue(root.left, value) + countGreaterThanValue(root.right, value);
-    } // needs work
-
-    public static boolean isSymmetric(BinaryNode<Integer> root) {
-        return isSymmetricHelper(root, root);
     }
 
-    private static boolean isSymmetricHelper(BinaryNode<Integer> node1, BinaryNode<Integer> node2) {
-        if(node1 == null && node2 == null) {
+    public static boolean isSymmetric(BinaryNode<Integer> root) {
+        BinaryNode<Integer> leftSubtree = root.left;
+        BinaryNode<Integer> rightSubtree = root.right;
+
+        if(leftSubtree == null && rightSubtree == null) {
             return true;
+        } else if(leftSubtree == null || rightSubtree == null) {
+            return false;
+        } else {
+            while(leftSubtree != null && rightSubtree != null) {
+                BinaryNode<Integer> leftSubtreeRoot = leftSubtree;
+                BinaryNode<Integer> rightSubtreeRoot = rightSubtree;
+                BinaryNode<Integer> leftSubtreeSucNode = leftSubtreeRoot;
+                BinaryNode<Integer> rightSubtreeSucNode = rightSubtreeRoot;
+
+                if(leftSubtree.left == null && leftSubtree.right == null) {
+                    if(rightSubtree.left == null && rightSubtree.right == null) {
+                        leftSubtree = leftSubtreeSucNode;
+                        rightSubtree = rightSubtreeSucNode;
+                    } else {
+                        return false;
+                    }
+                }
+            }
         }
 
-        if(node1 != null && node2 != null) {
-            return isSymmetricHelper(node1.left, node2.right) && isSymmetricHelper(node1.right, node2.left);
-        }
-        return false;
-    } // needs work
+    }
 
     public static void main(String[] args) {
         BinaryNode<Integer> root = new BinaryNode<Integer>(
             10, new BinaryNode<>(
                 8, new BinaryNode<>(6), new BinaryNode<>(9)
                 ), new BinaryNode<>(
-                    14, new BinaryNode<>(12), new BinaryNode<>(null)
+                    14, new BinaryNode<>(12), new BinaryNode<>(17)
                     )
         );
-        // System.out.println(countGreaterThanValue(root, 9));
+
+        System.out.println(countGreaterThanValue(root, 9));
         System.out.println(isSymmetric(root));
     }
 }
