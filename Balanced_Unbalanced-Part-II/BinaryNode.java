@@ -5,14 +5,17 @@ public class BinaryNode<E> {
     public E element;//data
     public BinaryNode<E> left;//left child
     public BinaryNode<E> right;//right child
+
     BinaryNode(E element){
         this(element, null, null);
     }
+
     BinaryNode(E element, BinaryNode<E> left, BinaryNode<E> right){
         this.left = left;
         this.right = right;
         this.element = element;
     }
+
     public int getHeight() {
         if(left == null && right == null)
             return 0;
@@ -26,14 +29,17 @@ public class BinaryNode<E> {
         }
         return height + 1;
     }
+
     public String toString2() {
         if(left == null && right == null)
             return element + "";
         return element + "(" + left + ", " + right + ")";
     }
+
     public String toString() {
         if(left == null && right == null && element == null)
             return "";
+        
         LinkedList<BinaryNode<E>> list = new LinkedList<BinaryNode<E>>();
         String result = "";
         list.addFirst(this);
@@ -41,6 +47,7 @@ public class BinaryNode<E> {
         int h = getHeight();
         int level = (int) Math.pow(2,h);
         BinaryNode dummy = new BinaryNode(null);
+
         while(!list.isEmpty()) {
             boolean allDummies = true;
             for(BinaryNode<E> b: list)
